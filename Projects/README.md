@@ -1,5 +1,3 @@
-# README.md
-
 # Deep Dive into Shell Scripting: 10 Major DevOps Projects
 
 Welcome to your hands-on journey into shell scripting for DevOps! This repository provides 10 carefully crafted shell scripting projects, progressing from beginner to advanced, designed to build your automation skills and portfolio for real-world DevOps and Linux system roles.
@@ -23,8 +21,8 @@ Welcome to your hands-on journey into shell scripting for DevOps! This repositor
 
 1. **Clone the repository:**
    ```bash
-   git clone https://github.com/your-username/deep-dive-shell-scripting.git
-   cd deep-dive-shell-scripting
+   git clone https://github.com/iamdommathamari/Scripting.git
+   cd Scripting
    ```
 
 2. **Browse folders:**  
@@ -36,8 +34,8 @@ Welcome to your hands-on journey into shell scripting for DevOps! This repositor
 3. **Run scripts:**  
    Make files executable and run, e.g.:
    ```bash
-   chmod +x project1/organize_files.sh
-   ./project1/organize_files.sh
+   chmod +x project_name/file.sh
+   ./project_name/file.sh
    ```
 
 ## 💡 Project Highlights
@@ -82,19 +80,19 @@ Pull requests, improvements, and additional project ideas are welcome! Please fo
 
 This repository is for educational and professional learning purposes.
 
+- https://www.placementpreparation.io/blog/shell-scripting-project-ideas-for-beginners/
+- https://www.dunebook.com/the-20-best-shell-scripting-project-ideas-to-improve-your-linux-skills/ 
+- https://www.softlogicsys.in/unix-shell-scripting-projects/ 
+- https://devopscube.com/linux-shell-scripting-for-devops/ 
+- https://nikitajadhav.hashnode.dev/basic-linux-shell-scripting-for-devops-engineers-and-real-world-shell-scripting-use-cases 
+- https://dev.to/prodevopsguytech/devops-automation-with-shell-scripting-1p69 
+- https://github.com/LondheShubham153/Shell-Scripting-For-DevOps 
+- https://www.udemy.com/course/linux-shell-scripting-projects/ 
+- https://www.udemy.com/course/learn-shell-scripting-incl-awksedand-more-than-10-project/ 
+- https://www.codecademy.com/projects/language/bash 
+- https://www.coursera.org/courses?query=shell+scripting 
+- https://www.geeksforgeeks.org/linux-unix/shell-script-examples/ 
+
 *References: . See above for detailed learning links and resources.*
 
 > These 10 shell scripting projects will prepare you for real-world job roles and interviews in DevOps, Linux, and IT automation. Happy scripting!
-
-: https://www.placementpreparation.io/blog/shell-scripting-project-ideas-for-beginners/
-: https://www.dunebook.com/the-20-best-shell-scripting-project-ideas-to-improve-your-linux-skills/
-: https://www.softlogicsys.in/unix-shell-scripting-projects/
-: https://devopscube.com/linux-shell-scripting-for-devops/
-: https://nikitajadhav.hashnode.dev/basic-linux-shell-scripting-for-devops-engineers-and-real-world-shell-scripting-use-cases
-: https://dev.to/prodevopsguytech/devops-automation-with-shell-scripting-1p69
-: https://github.com/LondheShubham153/Shell-Scripting-For-DevOps
-: https://www.udemy.com/course/linux-shell-scripting-projects/
-: https://www.udemy.com/course/learn-shell-scripting-incl-awksedand-more-than-10-project/
-: https://www.codecademy.com/projects/language/bash
-: https://www.coursera.org/courses?query=shell+scripting
-: https://www.geeksforgeeks.org/linux-unix/shell-script-examples/
