@@ -1,20 +1,23 @@
 #!/bin/bash
-# Enhanced File Organization Script
-# This script organizes files in a directory by their extensions or dates.
+# Enhanced File Organizer Script - Modular Version
+# Organize files by extension, modification date, or creation date (recursive)
+# Logs all actions for auditing.
 # Usage: ./enhance_organize.sh
 # author: Mohith Dommathamari
 
 LOGFILE="organizer_audit.log"
 
-read -p "Enter the directory to organize: " DIR
-if [ ! -d "$DIR" ]; then
-  echo "Directory not found!"
-  exit 1
-fi
+prompt_directory() {
+  read -p "Enter the directory to organize: " DIR
+  if [ ! -d "$DIR" ]; then
+    echo "Directory not found!"
+    exit 1
+  fi
+}
 
-# Menu for organization method
-echo "How do you want to organize?"
-select METHOD in "By Extension" "By Modified Date" "By Creation Date" "Exit"; do
+choose_method() {
+  echo "How do you want to organize?"
+  select METHOD in "By Extension" "By Date Modified" "By Date Created" "Exit"; do
     case $REPLY in
       1) ORGANIZE_TYPE="ext"; break;;
       2) ORGANIZE_TYPE="mod"; break;;
@@ -22,34 +25,51 @@ select METHOD in "By Extension" "By Modified Date" "By Creation Date" "Exit"; do
       4) exit 0;;
       *) echo "Invalid option";;
     esac
-done
+  done
+}
 
-# Process all files recursively
-find "$DIR" -type f | while read -r FILE; do
-    # Choose target subdirectory based on method
-    case $ORGANIZE_TYPE in
-      ext)
-        EXT="${FILE##*.}"
-        [ "$EXT" = "$FILE" ] && EXT="no_extension"
-        TARGET_DIR="$(dirname "$FILE")/$EXT"
-        ;;
-      mod)
-        MOD_DATE=$(stat -c %y "$FILE" 2>/dev/null | cut -d' ' -f1 | cut -d'-' -f1,2)
-        [ -z "$MOD_DATE" ] && MOD_DATE="unknown_date"
-        TARGET_DIR="$(dirname "$FILE")/$MOD_DATE"
-        ;;
-      cre)
-        # stat -c %w only works for some filesystems; fall back to mod date if blank
-        CRE_DATE=$(stat -c %w "$FILE" 2>/dev/null | cut -d' ' -f1 | cut -d'-' -f1,2)
-        [ -z "$CRE_DATE" -o "$CRE_DATE" = "-" ] && CRE_DATE=$(stat -c %y "$FILE" | cut -d' ' -f1 | cut -d'-' -f1,2)
-        [ -z "$CRE_DATE" ] && CRE_DATE="unknown_date"
-        TARGET_DIR="$(dirname "$FILE")/$CRE_DATE"
-        ;;
-    esac
+get_target_dir() {
+  FILE="$1"
+  case $ORGANIZE_TYPE in
+    ext)
+      EXT="${FILE##*.}"
+      [ "$EXT" = "$FILE" ] && EXT="no_extension"
+      echo "$(dirname "$FILE")/$EXT"
+      ;;
+    mod)
+      MOD_DATE=$(stat -c %y "$FILE" 2>/dev/null | cut -d' ' -f1 | cut -d'-' -f1,2)
+      [ -z "$MOD_DATE" ] && MOD_DATE="unknown_date"
+      echo "$(dirname "$FILE")/$MOD_DATE"
+      ;;
+    cre)
+      CRE_DATE=$(stat -c %w "$FILE" 2>/dev/null | cut -d' ' -f1 | cut -d'-' -f1,2)
+      [ -z "$CRE_DATE" -o "$CRE_DATE" = "-" ] && CRE_DATE=$(stat -c %y "$FILE" | cut -d' ' -f1 | cut -d'-' -f1,2)
+      [ -z "$CRE_DATE" ] && CRE_DATE="unknown_date"
+      echo "$(dirname "$FILE")/$CRE_DATE"
+      ;;
+  esac
+}
 
+log_action() {
+  ACTION="$1"
+  echo "$ACTION at $(date)" >> "$LOGFILE"
+}
+
+organize_files() {
+  find "$DIR" -type f | while read -r FILE; do
+    TARGET_DIR="$(get_target_dir "$FILE")"
     mkdir -p "$TARGET_DIR"
+    BASENAME="$(basename "$FILE")"
     mv -n "$FILE" "$TARGET_DIR/"
-    echo "Moved $FILE -> $TARGET_DIR/ at $(date)" >> "$LOGFILE"
-done
+    log_action "Moved $FILE -> $TARGET_DIR/$BASENAME"
+  done
+}
 
-echo "Files organized by $([ "$ORGANIZE_TYPE" = "ext" ] && echo extension || echo date)! Actions logged in $LOGFILE."
+# ========== Main Script ==========
+
+prompt_directory
+choose_method
+organize_files
+
+echo "Files organized by $([ "$ORGANIZE_TYPE" = "ext" ] && echo 'extension' || echo 'date')!"
+echo "Audit log: $LOGFILE"
