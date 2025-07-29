@@ -5,7 +5,7 @@
 # Usage: ./enhance_organize.sh
 # author: Mohith Dommathamari
 
-LOGFILE="organizer_audit.log"
+LOGFILE="/var/log/organizer_audit.log"
 
 prompt_directory() {
   read -p "Enter the directory to organize: " DIR
