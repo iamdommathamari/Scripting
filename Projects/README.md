@@ -80,10 +80,6 @@ Pull requests, improvements, and additional project ideas are welcome! Please fo
 
 This repository is for educational and professional learning purposes.
 
-*References: . See above for detailed learning links and resources.*
-
-> These 10 shell scripting projects will prepare you for real-world job roles and interviews in DevOps, Linux, and IT automation. Happy scripting!
-
 - https://www.placementpreparation.io/blog/shell-scripting-project-ideas-for-beginners/
 - https://www.dunebook.com/the-20-best-shell-scripting-project-ideas-to-improve-your-linux-skills/ 
 - https://www.softlogicsys.in/unix-shell-scripting-projects/ 
@@ -96,3 +92,7 @@ This repository is for educational and professional learning purposes.
 - https://www.codecademy.com/projects/language/bash 
 - https://www.coursera.org/courses?query=shell+scripting 
 - https://www.geeksforgeeks.org/linux-unix/shell-script-examples/ 
+
+*References: . See above for detailed learning links and resources.*
+
+> These 10 shell scripting projects will prepare you for real-world job roles and interviews in DevOps, Linux, and IT automation. Happy scripting!
