@@ -1,12 +1,3 @@
-Absolutely! Here’s a comprehensive **README.md** that you can use in your GitHub repo for **both types of scripts**:
-
-1. **Basic File Organizer** (organizes files in a directory by extension)
-2. **Enhanced Modular File Organizer** (organizes files recursively, with options for extension, modified/created date, interactive menu, and audit logging)
-
-The README is structured for clarity: overview, instructions, detailed explanations of logic and features, usage examples, and extensibility notes.
-
-# README.md
-
 # 🗃️ File Organizer Bash Scripts
 
 This repository includes two robust Bash scripts designed to organize files in Linux directories:
