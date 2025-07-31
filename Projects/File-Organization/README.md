@@ -182,7 +182,7 @@ prompt_directory() {
 - Checks for existence (-d "$DIR"), exits if not present.
 
 ### Function: choose_method
-bash
+```bash
 choose_method() {
   echo "How do you want to organize?"
   select METHOD in "By Extension" "By Date Modified" "By Date Created" "Exit"; do
@@ -195,14 +195,13 @@ choose_method() {
     esac
   done
 }
-Presents options for organization method (extension, date modified, date created, exit).
+```
+- Presents options for organization method (extension, date modified, date created, exit).
+- Sets the variable ORGANIZE_TYPE accordingly, or exits if chosen.
+- Uses Bash’s select for a numbered menu.
 
-Sets the variable ORGANIZE_TYPE accordingly, or exits if chosen.
-
-Uses Bash’s select for a numbered menu.
-
-Function: get_target_dir
-bash
+### Function: get_target_dir
+```bash
 get_target_dir() {
   FILE="$1"
   case $ORGANIZE_TYPE in
