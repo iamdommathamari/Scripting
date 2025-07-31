@@ -231,13 +231,14 @@ get_target_dir() {
 - Handles missing values (e.g., for filesystems with no birthdate) by using "unknown_date".
 - Uses the parent directory with the calculated subfolder.
 
-Function: log_action
-bash
+### Function: log_action
+```bash
 log_action() {
   ACTION="$1"
   echo "$ACTION at $(date)" >> "$LOGFILE"
 }
-Logs each move action with a timestamp to the audit log.
+```
+- Logs each move action with a timestamp to the audit log.
 
 Function: organize_files
 bash
