@@ -240,8 +240,8 @@ log_action() {
 ```
 - Logs each move action with a timestamp to the audit log.
 
-Function: organize_files
-bash
+### Function: organize_files
+```bash
 organize_files() {
   find "$DIR" -type f | while read -r FILE; do
     TARGET_DIR="$(get_target_dir "$FILE")"
@@ -251,19 +251,14 @@ organize_files() {
     log_action "Moved $FILE -> $TARGET_DIR/$BASENAME"
   done
 }
-Uses find to list all files recursively inside the chosen directory.
-
-For each file:
-
-Determines the appropriate target directory.
-
-Creates it if needed with mkdir -p.
-
-Gets just the file’s basename.
-
-Moves the file (-n = don’t overwrite existing).
-
-Logs the move.
+```
+- Uses find to list all files recursively inside the chosen directory.
+- For each file:
+  - Determines the appropriate target directory.
+  - Creates it if needed with mkdir -p.
+  - Gets just the file’s basename.
+  - Moves the file (-n = don’t overwrite existing).
+  - Logs the move.
 
 Main Script Block
 bash
