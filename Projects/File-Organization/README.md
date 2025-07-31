@@ -223,17 +223,13 @@ get_target_dir() {
       ;;
   esac
 }
-Determines the target folder based on the chosen organization type:
-
-By extension: gets extension, handles files with no extension.
-
-By modified date: gets last modified (stat -c %y) year-month.
-
-By created date: gets creation (stat -c %w), falls back to modified if missing.
-
-Handles missing values (e.g., for filesystems with no birthdate) by using "unknown_date".
-
-Uses the parent directory with the calculated subfolder.
+```
+- Determines the target folder based on the chosen organization type:
+- By extension: gets extension, handles files with no extension.
+- By modified date: gets last modified (stat -c %y) year-month.
+- By created date: gets creation (stat -c %w), falls back to modified if missing.
+- Handles missing values (e.g., for filesystems with no birthdate) by using "unknown_date".
+- Uses the parent directory with the calculated subfolder.
 
 Function: log_action
 bash
