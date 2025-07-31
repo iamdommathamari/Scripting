@@ -94,25 +94,62 @@ chmod +x enhanced_organize.sh        # For enhanced
 
 ## Basic File Organizer: Code Explanation
 
-
-Click to expand detailed line-by-line explanation
-
 ```bash
 #!/bin/bash
+```
+- Shebang: Tells the system to use the Bash shell to interpret this script.
 
+```bash
 read -p "Enter the directory to organize: " DIR
+```
+- Prompt for Directory: Asks the user to input the path to the directory they want to organize and stores the answer in the variable DIR.
+
+```bash
 cd "$DIR" || { echo "Directory not found!"; exit 1; }
+```
+- Change Directory: Attempts to move into the specified directory.
+- If that fails (e.g., the directory does not exist), prints "Directory not found!" and stops the script.
+
+```bash
 for FILE in *; do
+```
+- Iterate Files: Initiates a loop over each item in the directory. The * matches all files and folders in the current directory.
+
+```bash
     [ -d "$FILE" ] && continue                     # Skip folders
+```
+- Skip Folders: Checks if ITEM is a directory with [ -d "$FILE" ]. If so, skips it (does not process folders).
 
+```bash
     EXT="${FILE##*.}"                              # Get extension (after last dot)
-    [ "$EXT" == "$FILE" ] && EXT="no_extension"    # Handle files with no extension
+```
+- Extract Extension: Gets the file extension by stripping off everything before the last dot (.) in the filename.
+- Example: For image.png, EXT becomes png.
 
+```bash
+    [ "$EXT" == "$FILE" ] && EXT="no_extension"    # Handle files with no extension
+```
+- Handle No Extension: If the extracted extension is identical to the filename (meaning there's no dot), assigns "no_extension" as the extension's value.
+
+```bash
     mkdir -p "$EXT"                                # Create folder for this extension if not exists
+```
+- Make Directory: Creates a folder named after the extension if it doesn't already exist. The -p option avoids errors if the folder already exists.
+
+```bash
     mv "$FILE" "$EXT/"                             # Move file into its folder
+```
+- Move File: Moves the file into the directory corresponding to its extension.
+
+```bash
 done
+```
+- End Loop: Closes the for loop.
+
+```bash
 echo "Files organized by extension!"
 ```
+- Script Completion Message: Informs the user that the operation has finished.
 
 **How it works:**
 - Asks you for a directory.
@@ -124,17 +161,15 @@ echo "Files organized by extension!"
 
 ## Enhanced File Organizer: Explanation & Features
 
-
-Click to expand script and explanations
-
-### The Code
-
 ```bash
 #!/bin/bash
-# Enhanced File Organizer Script
-
 LOGFILE="organizer_audit.log"
+```
+- Declares the shell and gives the script a comment header.
+- Sets the log file to track file moves: organizer_audit.log.
 
+### Function: prompt_directory
+```bash
 prompt_directory() {
   read -p "Enter the directory to organize: " DIR
   if [ ! -d "$DIR" ]; then
@@ -142,7 +177,12 @@ prompt_directory() {
     exit 1
   fi
 }
+```
+- Prompts the user for a directory.
+- Checks for existence (-d "$DIR"), exits if not present.
 
+### Function: choose_method
+bash
 choose_method() {
   echo "How do you want to organize?"
   select METHOD in "By Extension" "By Date Modified" "By Date Created" "Exit"; do
@@ -155,7 +195,14 @@ choose_method() {
     esac
   done
 }
+Presents options for organization method (extension, date modified, date created, exit).
 
+Sets the variable ORGANIZE_TYPE accordingly, or exits if chosen.
+
+Uses Bash’s select for a numbered menu.
+
+Function: get_target_dir
+bash
 get_target_dir() {
   FILE="$1"
   case $ORGANIZE_TYPE in
@@ -177,12 +224,28 @@ get_target_dir() {
       ;;
   esac
 }
+Determines the target folder based on the chosen organization type:
 
+By extension: gets extension, handles files with no extension.
+
+By modified date: gets last modified (stat -c %y) year-month.
+
+By created date: gets creation (stat -c %w), falls back to modified if missing.
+
+Handles missing values (e.g., for filesystems with no birthdate) by using "unknown_date".
+
+Uses the parent directory with the calculated subfolder.
+
+Function: log_action
+bash
 log_action() {
   ACTION="$1"
   echo "$ACTION at $(date)" >> "$LOGFILE"
 }
+Logs each move action with a timestamp to the audit log.
 
+Function: organize_files
+bash
 organize_files() {
   find "$DIR" -type f | while read -r FILE; do
     TARGET_DIR="$(get_target_dir "$FILE")"
@@ -192,7 +255,22 @@ organize_files() {
     log_action "Moved $FILE -> $TARGET_DIR/$BASENAME"
   done
 }
+Uses find to list all files recursively inside the chosen directory.
 
+For each file:
+
+Determines the appropriate target directory.
+
+Creates it if needed with mkdir -p.
+
+Gets just the file’s basename.
+
+Moves the file (-n = don’t overwrite existing).
+
+Logs the move.
+
+Main Script Block
+bash
 # ========== Main Script ==========
 prompt_directory
 choose_method
@@ -200,7 +278,9 @@ organize_files
 
 echo "Files organized by $([ "$ORGANIZE_TYPE" = "ext" ] && echo 'extension' || echo 'date')!"
 echo "Audit log: $LOGFILE"
-```
+Runs the three major steps: gets directory, gets chosen method, organizes files.
+
+Prints a summary and location of the log.
 
 ### Interactive Organization Menu
 
