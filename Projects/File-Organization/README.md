@@ -260,8 +260,8 @@ organize_files() {
   - Moves the file (-n = don’t overwrite existing).
   - Logs the move.
 
-Main Script Block
-bash
+### Main Script Block
+```bash
 # ========== Main Script ==========
 prompt_directory
 choose_method
@@ -269,9 +269,9 @@ organize_files
 
 echo "Files organized by $([ "$ORGANIZE_TYPE" = "ext" ] && echo 'extension' || echo 'date')!"
 echo "Audit log: $LOGFILE"
-Runs the three major steps: gets directory, gets chosen method, organizes files.
-
-Prints a summary and location of the log.
+```
+- Runs the three major steps: gets directory, gets chosen method, organizes files.
+- Prints a summary and location of the log.
 
 ### Interactive Organization Menu
 
