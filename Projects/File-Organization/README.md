@@ -118,6 +118,12 @@ for FILE in * .*; do
    - .* matches hidden files (including ., .., and dotfiles).
 
 ```bash
+     # Skip . and ..
+    [[ "$FILE" == "." || "$FILE" == ".." ]] && continue
+```
+- If the file is . (current directory) or .. (parent directory), it skips processing and goes to the next item in the loop.
+
+```bash
     [ -d "$FILE" ] && continue                     # Skip folders
 ```
 - Skip Folders: Checks if ITEM is a directory with [ -d "$FILE" ]. If so, skips it (does not process folders).
@@ -129,9 +135,15 @@ for FILE in * .*; do
 - Example: For image.png, EXT becomes png.
 
 ```bash
-    [ "$EXT" == "$FILE" ] && EXT="no_extension"    # Handle files with no extension
+       # Handle files without extension or hidden files without extension
+    if [[ "$FILE" != *.* ]] || [[ "$FILE" == .* && "$FILE" != *.*.* ]]; then
+        EXT="no_extension"
+    fi
 ```
-- Handle No Extension: If the extracted extension is identical to the filename (meaning there's no dot), assigns "no_extension" as the extension's value.
+- This block ensures that:
+  - If the filename does not have a dot in the middle (*.*), OR
+  - If it's a hidden file (starts with a dot) but doesn't have another dot after that (e.g., .bashrc)
+  - Then set EXT to "no_extension".
 
 ```bash
     mkdir -p "$EXT"                                # Create folder for this extension if not exists
@@ -139,7 +151,7 @@ for FILE in * .*; do
 - Make Directory: Creates a folder named after the extension if it doesn't already exist. The -p option avoids errors if the folder already exists.
 
 ```bash
-    mv "$FILE" "$EXT/"                             # Move file into its folder
+    mv -n "$FILE" "$EXT/"                             # Move file into its folder
 ```
 - Move File: Moves the file into the directory corresponding to its extension.
 
