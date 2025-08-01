@@ -111,9 +111,11 @@ cd "$DIR" || { echo "Directory not found!"; exit 1; }
 - If that fails (e.g., the directory does not exist), prints "Directory not found!" and stops the script.
 
 ```bash
-for FILE in *; do
+for FILE in * .*; do
 ```
-- Iterate Files: Initiates a loop over each item in the directory. The * matches all files and folders in the current directory.
+- Iterate Files: Initiates a loop over each item in the directory.
+   - The * matches all files and folders in the current directory.
+   - .* matches hidden files (including ., .., and dotfiles).
 
 ```bash
     [ -d "$FILE" ] && continue                     # Skip folders
