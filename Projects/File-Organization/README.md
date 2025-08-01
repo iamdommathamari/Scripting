@@ -52,8 +52,8 @@ This repository includes two robust Bash scripts designed to organize files in L
 ### 1. Clone or Download
 
 ```bash
-git clone https://github.com/your-username/file-organizer-scripts.git
-cd file-organizer-scripts
+git clone https://github.com/iamdommathamari/Scripting.git
+cd Scripting
 ```
 
 ### 2. Prepare a Test Directory
