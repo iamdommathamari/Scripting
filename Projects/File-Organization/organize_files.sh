@@ -7,7 +7,7 @@ read -p "Enter the directory to organize: " DIR
 
 cd "$DIR" || { echo "Directory not found!"; exit 1; }
 
-for FILE in * .*; do
+for FILE in *; do
     # Skip . and ..
     [[ "$FILE" == "." || "$FILE" == ".." ]] && continue
     # Skip directories
