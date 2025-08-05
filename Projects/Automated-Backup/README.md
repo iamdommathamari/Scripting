@@ -116,7 +116,7 @@ find "$DEST_DIR" -name "backup_*.tar.gz" -type f -mtime +7 -exec rm {} \;
     - Finds backup files (`backup_*.tar.gz`) in the destination that are regular files and **older than 7 days** (`-mtime +7`).
     - Deletes each found file.
 
-**Summary:**  
+- **Summary:**  
 This script interactively creates a compressed backup of a specified directory, names it with a timestamp, saves it to a specified backup location, logs the result, and cleans up old backups older than 7 days.
 ---
 
